@@ -39,12 +39,12 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    actions = []
+    actions = set()
 
     for i in range(0, 3):
         for j in range(0, 3):
             if board[i][j] == EMPTY:
-                actions.append((i, j))
+                actions.add((i, j))
 
     return actions
 
@@ -121,7 +121,7 @@ def max_result(board, alpha):
     if terminal(board):
         return utility(board)
 
-    p = -math.inf   
+    p = -math.inf
     for action in actions(board):
         if p >= alpha:
             return p
@@ -131,7 +131,7 @@ def max_result(board, alpha):
 def min_result(board, alpha):
     if terminal(board):
         return utility(board)
-    
+
     p = math.inf
     for action in actions(board):
         if p <= alpha:
@@ -148,10 +148,10 @@ def minimax(board):
         
     cur_player = player(board)
     optimal_action = None
-    
+
     if cur_player == X:
         p = -math.inf
-        
+
         for action in actions(board):
             q = min_result(result(board, action), p)
             if p < q:
@@ -159,7 +159,7 @@ def minimax(board):
                 optimal_action = action
     elif cur_player == O:
         p = math.inf
-        
+
         for action in actions(board):
             q = max_result(result(board, action), p)
             if p > q:
