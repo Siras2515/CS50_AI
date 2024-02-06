@@ -55,7 +55,7 @@ def result(board, action):
     """
     new_board = copy.deepcopy(board)
 
-    if new_board[action[0]][action[1]] != EMPTY:
+    if new_board[action[0]][action[1]] != EMPTY or not (0 <= action[0] < 3) or not (0 <= action[1] < 3):
         raise Exception("invalid action")
     else:
         new_board[action[0]][action[1]] = player(board)
@@ -143,6 +143,9 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    if terminal(board):
+        return None
+        
     cur_player = player(board)
     optimal_action = None
     
